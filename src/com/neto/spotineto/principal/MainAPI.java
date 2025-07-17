@@ -1,7 +1,7 @@
 package com.neto.spotineto.principal;
 
 import com.google.gson.Gson;
-import com.neto.spotineto.modelos.DiscogsResponse;
+import com.neto.spotineto.modelos.ListaDeMusicasAPI;
 import com.neto.spotineto.modelos.Musica;
 
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class MainAPI {
         var nomeBusca = scanner.nextLine();
 
         String nomeCodificado = URLEncoder.encode(nomeBusca, StandardCharsets.UTF_8);
-        String endereco = "https://api.discogs.com/database/search?title=" + nomeCodificado + "&token=" + tokenAPI + "&per_page=1&page=1";
+        String endereco = "https://api.discogs.com/database/search?title=" + nomeCodificado + "&token=" + tokenAPI + "&page=1&type=release";
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -35,15 +35,8 @@ public class MainAPI {
         String responseBody = response.body();
 
         Gson gson = new Gson();
-        DiscogsResponse dgsResponse = gson.fromJson(responseBody, DiscogsResponse.class);
-        if (dgsResponse.getResultados() != null && !dgsResponse.getResultados().isEmpty()) {
-            Musica musica = dgsResponse.getResultados().getFirst();
-            System.out.println("Título: " + musica.getTitulo());
-            System.out.println("Ano de Lançamento: " + musica.getAnoDeLancamento());
-            System.out.println("Gêneros: " + musica.getGeneros());
-            System.out.println("Capa: " + musica.getImagemURL());
-        } else {
-            System.out.println("Nenhum resultado encontrado para: " + nomeBusca);
-        }
+        ListaDeMusicasAPI dgsResponse = gson.fromJson(responseBody, ListaDeMusicasAPI.class);
+        Musica musica = new Musica(dgsResponse.getResultados().getFirst());
+        System.out.println(musica);
     }
 }

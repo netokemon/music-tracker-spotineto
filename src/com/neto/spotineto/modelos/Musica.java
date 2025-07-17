@@ -5,34 +5,27 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class Musica extends Audio{
-    @SerializedName("genre")
     private List<String> generos;
-    private String album;
-    private String gravadora;
+    private List<String> gravadoras;
 
-    public Musica(String titulo, String artista, int duracaoEmSegundos, String genero) {
-        super(titulo, artista, duracaoEmSegundos);
-        this.generos = generos;
+
+    public Musica(MusicaResponse resultado) {
+        super(resultado.title(), Integer.valueOf(resultado.year()), resultado.cover_image());
+        this.generos = resultado.genre();
+        this.gravadoras = resultado.label();
     }
 
     public List<String> getGeneros() {
         return generos;
     }
 
-    public String getAlbum() {
-        return album;
-    }
-
-    public String getGravadora() {
-        return gravadora;
-    }
-
-    public void setAlbum(String album) {
-        this.album = album;
+    public List<String> getGravadoras() {
+        return gravadoras;
     }
 
     @Override
     public String toString() {
-        return this.getTitulo();
+        return this.getTitulo() + "\nAno de Lançamento: " + this.getAnoDeLancamento() + "\nGêneros: " + this.getGeneros()
+                + "\nGravadora: " + this.getGravadoras() + "\nURL para imagem da capa: " + this.getImagemURL();
     }
 }

@@ -54,7 +54,7 @@ public class Playlist implements Acoes {
 
     @Override
     public void reproduz() {
-        System.out.println("\nReproduzindo Agora: " + musicas.get(0).getTitulo() + ", de " + musicas.get(0).getArtista());
+        System.out.println("\nReproduzindo Agora: " + musicas.get(0).getTitulo());
         System.out.println("Próxima a tocar: " + musicas.get(1).getTitulo());
         musicas.get(0).streams += 1;
     }

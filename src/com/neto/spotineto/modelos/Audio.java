@@ -4,31 +4,23 @@ import com.neto.spotineto.utilitarios.Acoes;
 import com.neto.spotineto.utilitarios.Conversor;
 
 public class Audio implements Acoes, Comparable<Audio> {
-    @SerializedName("title")
     private String titulo;
-    private String artista;
-    @SerializedName("cover_image")
     private String imagemURL;
     private int duracaoEmSegundos;
     protected int streams;
     protected int likes;
-    @SerializedName("year")
     private int anoDeLancamento;
 
-    public Audio(String titulo, String artista, int duracaoEmSegundos){
+    public Audio(String titulo, int anoDeLancamento, String imagemURL){
         this.titulo = titulo;
-        this.artista = artista;
-        this.duracaoEmSegundos = duracaoEmSegundos;
+        this.anoDeLancamento = anoDeLancamento;
+        this.imagemURL = imagemURL;
         this.likes = 0;
         this.streams = 0;
     }
 
     public String getTitulo() {
         return titulo;
-    }
-
-    public String getArtista() {
-        return artista;
     }
 
     public String getImagemURL() {
@@ -51,7 +43,7 @@ public class Audio implements Acoes, Comparable<Audio> {
 
     @Override
     public void reproduz(){
-        System.out.println("\nReproduzindo Agora: " + this.titulo + ", de " + this.artista);
+        System.out.println("\nReproduzindo Agora: " + this.titulo);
         System.out.println("<<<<<<<<<<<<< " + Conversor.converteEmMinutos(this.duracaoEmSegundos) + " " + this.getLikes() + " Curtidas >>>>>>>>>>>>>");
         this.streams += 1;
     }
