@@ -12,7 +12,7 @@ public class ConexaoAPI {
     //Insira sua Token do discogs aqui! -->
     private String tokenAPI = "";
 
-    public HttpResponse<String> buscaMusica(String nomeBusca){
+    public String buscaMusica(String nomeBusca){
         String nomeCodificado = CodificadorURL.codificaNome(nomeBusca);
         String endereco = "https://api.discogs.com/database/search?title="
                 + nomeCodificado + "&token=" + tokenAPI + "&page=1&type=release";
@@ -25,7 +25,7 @@ public class ConexaoAPI {
                     .uri(URI.create(endereco))
                     .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            return response;
+            return response.body();
         } catch(IOException e){
             System.err.println("Houve um erro de rede: " + e.getMessage());
             return null;
