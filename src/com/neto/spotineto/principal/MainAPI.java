@@ -23,14 +23,11 @@ public class MainAPI {
             String responseBody = conexao.buscaMusica(nomeBusca);
             Gson gson = new Gson();
             ListaDeMusicasAPI dgsResponse = gson.fromJson(responseBody, ListaDeMusicasAPI.class);
-            List<MusicaResponse> resultados = dgsResponse.getResultados().stream()
-                    .filter(m -> m.year() != null)
-                    .toList();
 
 
-            if(!resultados.isEmpty()) {
+            if(!dgsResponse.getResultados().isEmpty() && dgsResponse.getResultados() != null) {
                 List<Musica> musicas = new ArrayList<Musica>();
-                for (MusicaResponse m : resultados) {
+                for (MusicaResponse m : dgsResponse.getResultados()) {
                     Musica musica = new Musica(m);
                     musicas.add(musica);
                 }
@@ -43,8 +40,6 @@ public class MainAPI {
             }
         } catch(NumberFormatException e){
             System.err.println("Erro ao converter dados da API: " + e.getMessage());
-        } catch(NullPointerException e){
-            System.err.println("Nenhum resultado encontrado para sua busca. :( (" + e.getMessage() + ")" );
         }
 
     }

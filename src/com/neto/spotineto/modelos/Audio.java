@@ -11,9 +11,13 @@ public class Audio implements Acoes, Comparable<Audio> {
     protected int likes;
     private int anoDeLancamento;
 
-    public Audio(String titulo, int anoDeLancamento, String imagemURL){
+    public Audio(String titulo, String anoDeLancamento, String imagemURL){
         this.titulo = titulo;
-        this.anoDeLancamento = anoDeLancamento;
+        try{
+            this.anoDeLancamento = Integer.valueOf(anoDeLancamento);
+        } catch(NumberFormatException e){
+            this.anoDeLancamento = 0;
+        }
         this.imagemURL = imagemURL;
         this.likes = 0;
         this.streams = 0;

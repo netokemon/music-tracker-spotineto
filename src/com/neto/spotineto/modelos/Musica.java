@@ -10,7 +10,7 @@ public class Musica extends Audio{
 
 
     public Musica(MusicaResponse resultado) {
-        super(resultado.title(), Integer.valueOf(resultado.year()), resultado.cover_image());
+        super(resultado.title(), resultado.year(), resultado.cover_image());
         this.generos = resultado.genre();
         this.gravadoras = resultado.label();
     }
